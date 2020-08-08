@@ -2,8 +2,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Leaflet Starter</title>
-	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
-	<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+	<link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+	<script src="vendor/leaflet/leaflet.js"></script>
+	<script src="vendor/leaflet/leaflet-src.js"></script>
 	<link rel="stylesheet" href="styles.css" />
 	<style>
 	#input {
@@ -42,8 +43,8 @@
 						  	<!-- type="hidden" -->
 						  	<input name="latitude" id="latitude" value="" />
 						  	<input name="longitude" id="longitude" value="" />
-						   <!--  <button type="submit" id="js-button" value="Submit Message">Submit</i></button> -->
-						    <button onclick="getLocation()">Find Me</button>
+						    <!-- <button type="submit" id="js-button" value="Submit Message">Submit</button> -->
+						    <button class="locate-me" onclick="getLocation()">Find Me</button>
 						  </div>
 						</form>
 						<hr/>
@@ -71,16 +72,29 @@ function getLocation() {
   }
 }
 
+function onLocationFound(e) {
+  var radius = 1;
+  L.marker([e.latitude, e.longitude]).addTo(map)
+    .bindPopup("You are within " + radius + " meters from this point").openPopup();
+  L.circle([e.latitude, e.longitude], radius).addTo(map);
+
+}
+
+
+
 function showPosition(position) {
 	console.log("Latitude: " + position.coords.latitude +
   "<br>Longitude: " + position.coords.longitude);
-     // var latField   = document.getElementById('latitude');
-     // var longField   = document.getElementById('longitude');
-     // latField.value = position.coords.latitude;
-     // longField.value = position.coords.longitude;
+     var latField   = document.getElementById('latitude');
+     var longField   = document.getElementById('longitude');
+     latField.value = position.coords.latitude;
+     longField.value = position.coords.longitude;
+
+     onLocationFound(position.coords);
+
 }
 </script>
 </body>
 
-<script src="scripts.js"></script>
+<script src="scripts.js?123456"></script>
 </html>

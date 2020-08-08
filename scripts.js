@@ -7,18 +7,21 @@ var map = L.map('map', {
 });
 
 // Create a Tile Layer and add it to the map
-var tiles = new L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png').addTo(map);
-
+var tiles = new L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+var lattyLongLegs = '';
 //
 
 var latField   = document.getElementById('latitude');
 var longField   = document.getElementById('longitude');
-
-
 map.on('click', function(e) {
     console.log("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
     latField.value = e.latlng.lat;
     longField.value = e.latlng.lng;
+    lattyLongLegs = {
+      latitude: e.latlng.lat,
+      longitude: e.latlng.lng
+    };   
+    onLocationFound(lattyLongLegs);
 });
 
 // modal
