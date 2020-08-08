@@ -5,6 +5,16 @@
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
 	<link rel="stylesheet" href="styles.css" />
+	<style>
+	#input {
+		position: fixed;
+		z-index: 999;
+		left:25%;
+		right:25%;
+		top:200px;
+		background: #fff;
+	}
+	</style>
 </head>
 <body>
 		<div id="map" data-modal="#modal" class="modal__trigger"></div>
@@ -29,20 +39,48 @@
 						    <textarea cols="40" rows="5" name="message" id="message"></textarea>
 						  </div>
 						  <div>
-						  	<input type="hidden" name="latitude" id="latitude" value="" />
-						  	<input type="hidden" name="longitude" id="longitude" value="" />
-						    <button type="submit" id="js-button" value="Submit Message">Submit</i></button>
+						  	<!-- type="hidden" -->
+						  	<input name="latitude" id="latitude" value="" />
+						  	<input name="longitude" id="longitude" value="" />
+						   <!--  <button type="submit" id="js-button" value="Submit Message">Submit</i></button> -->
+						    <button onclick="getLocation()">Find Me</button>
 						  </div>
 						</form>
+						<hr/>
+						<div id="input">
+
+						</div>
 						<!-- modal close button -->
 						<a href="" class="modal__close demo-close">
 							<svg class="" viewBox="0 0 24 24"><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"/><path d="M0 0h24v24h-24z" fill="none"/></svg>
 						</a>						
 					</div>
+
 				</div>
 			</div>
 
 
+
+<script>
+var x = document.getElementById("input");
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+	console.log("Latitude: " + position.coords.latitude +
+  "<br>Longitude: " + position.coords.longitude);
+     // var latField   = document.getElementById('latitude');
+     // var longField   = document.getElementById('longitude');
+     // latField.value = position.coords.latitude;
+     // longField.value = position.coords.longitude;
+}
+</script>
 </body>
+
 <script src="scripts.js"></script>
 </html>
